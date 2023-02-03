@@ -3,7 +3,7 @@ import streamlit as st
 
 st.set_page_config(page_title='Dashboard Nerwillis', page_icon=':bar_chart:', layout='wide')
 
-# Config
+# Setting
 hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}
