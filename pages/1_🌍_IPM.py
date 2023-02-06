@@ -68,8 +68,7 @@ elif(option == 'Provinsi'):
     # ===== rata-rata 3 tahun =====
     tigaTahun = df["Tahun 2021"].mean()
     formatTigaTahun = "{:,.2f}".format(tigaTahun)
-    tigaFormat = formatTigaTahun + "%"
     
     m1.metric(label='Tahun 2021', value=float(to['Tahun 2021'].map('{:,.2f}'.format)), delta = deltaFormat )
     m2.metric(label='Rata-Rata 3 Tahun Terakhir', value=float(to['Rata2'].map('{:,.2f}'.format)))
-    m3.metric(label='Rata-Rata IPM di seluruh Kota/Kabupaten', value=tigaFormat)
+    m3.metric(label='Rata-Rata IPM di seluruh Kota/Kabupaten', value=formatTigaTahun)
