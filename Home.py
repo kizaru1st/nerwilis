@@ -13,4 +13,18 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
 # Layout
-st.title('Neraca dan Analisis Wilayah Provinsi Sumatera Barat')
+st.title('⭐ IPM Provinsi Sumatera Barat')
+
+st.subheader('Overview')
+st.write(
+    """
+    IPM Adalah
+    """
+)
+
+st.subheader('Methodology')
+st.write(
+    """
+    Pureshare
+    """
+)
