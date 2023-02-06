@@ -10,7 +10,7 @@ from streamlit_option_menu import option_menu
 
 st.set_page_config(page_title='Dashboard Nerwillis',
                    page_icon=':bar_chart:', layout='wide')
-st.title('🌍 IPM')
+st.title('🌍 IPM (2018 - 2021)')
 
 # ===== Setting =====
 hide_streamlit_style = """
@@ -54,5 +54,11 @@ if(option == 'All'):
         st.write("ALL")
 
 elif(option == 'Provinsi'):
-    st.write('Provinsi')
-
+    provinsi = df['Kabupaten/Kota'].unique().tolist()
+    provinsi_selection = st.selectbox('Pilih Provinsi : ', provinsi)
+    m1, m2, m3 = st.columns((1, 1, 1))
+    todf = pd.read_excel('Neraca.xlsx', sheet_name='IPM')
+    to = todf[(todf['Kabupaten/Kota'] == provinsi_selection)]
+    m1.metric(label='Tahun 2021', value=float(to['Tahun 2021'].map('{:,.2f}'.format)))
+    m2.metric(label='Rata-Rata 3 Tahun Terakhir', value=float(to['Rata2'].map('{:,.2f}'.format)))
+    m3.metric(label='Persentase Kenaikan dari Tahun Sebelumnya', value=float(to['Persentase'].map('{:,.2f}'.format)))
