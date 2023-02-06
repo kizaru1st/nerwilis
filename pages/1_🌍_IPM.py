@@ -4,9 +4,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.subplots as sp
-import subprocess
-import sys
-from streamlit_option_menu import option_menu
+import matplotlib.pyplot as plt
 
 st.set_page_config(page_title='Dashboard Nerwillis',
                    page_icon=':bar_chart:', layout='wide')
@@ -59,16 +57,35 @@ elif(option == 'Provinsi'):
     m1, m2, m3 = st.columns((1, 1, 1))
     todf = pd.read_excel('Neraca.xlsx', sheet_name='IPM')
     to = todf[(todf['Kabupaten/Kota'] == provinsi_selection)]
-    
+
     # ===== delta =====
     deltaResult = float(to['Tahun 2021']) - float(to['Tahun 2020'])
     format_float = "{:,.2f}".format(deltaResult)
     deltaFormat = format_float + "%"
-    
+
     # ===== rata-rata 3 tahun =====
     tigaTahun = df["Tahun 2021"].mean()
     formatTigaTahun = "{:,.2f}".format(tigaTahun)
+
+    m1.metric(label='Tahun 2021', value=float(
+        to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
+    m2.metric(label='Rata-Rata 3 Tahun Terakhir',
+              value=float(to['Rata2'].map('{:,.2f}'.format)))
+    m3.metric(label='Rata-Rata IPM di seluruh Kota/Kabupaten',
+              value=formatTigaTahun)
+
+    # ===== List for Years =====
+    yearList = []
+    for i in range(2018,2022):
+        yearList.append(i)
+    yearList
     
-    m1.metric(label='Tahun 2021', value=float(to['Tahun 2021'].map('{:,.2f}'.format)), delta = deltaFormat )
-    m2.metric(label='Rata-Rata 3 Tahun Terakhir', value=float(to['Rata2'].map('{:,.2f}'.format)))
-    m3.metric(label='Rata-Rata IPM di seluruh Kota/Kabupaten', value=formatTigaTahun)
+    # ===== List for Values =====
+    single_row_df = to[0:1]
+    listValuesIPM = []
+    list_from_df = single_row_df.values.tolist()[0]
+    for i in range(1,5):
+        listValuesIPM.append(list_from_df[i])
+    listValuesIPM
+    
+    
