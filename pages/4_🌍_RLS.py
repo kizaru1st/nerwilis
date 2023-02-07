@@ -10,7 +10,7 @@ import sys
 
 st.set_page_config(page_title='Dashboard Nerwillis',
                    page_icon=':bar_chart:', layout='wide')
-st.title('🌍 IPM (2018 - 2021)')
+st.title('🌍 RLS (2018 - 2021)')
 
 # ===== Setting =====
 hide_streamlit_style = """
