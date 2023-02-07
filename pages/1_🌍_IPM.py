@@ -15,7 +15,7 @@ st.title('🌍 IPM (2018 - 2021)')
 # ===== Setting =====
 hide_streamlit_style = """
             <style>
-            #MainMenu {visibility: hidden;}
+            # MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
             </style>
             """
@@ -29,6 +29,12 @@ df = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='A:G',
                    header=0)
+
+df_multi = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='A:E',
+                   header=0)
+
 df_participants = pd.read_excel(excel_file,
                                 sheet_name=sheet_name,
                                 usecols='A:B')
@@ -42,11 +48,10 @@ option = st.sidebar.selectbox(
 if(option == 'All'):
     # ===== STREAMLIT SELECTION =====
     # provinsi = df['Kabupaten/Kota'].unique().tolist()
-    provinsi = df['Kabupaten/Kota'].unique()
+    provinsi = df_multi['Kabupaten/Kota'].unique()
     provinsi_selection = st.multiselect('Provinsi:',
                                         provinsi,
                                         default=provinsi)
-    
 
     # Selected option
     if len(provinsi_selection) == 0 or len(provinsi_selection) == 1:
@@ -54,8 +59,39 @@ if(option == 'All'):
 
     else:
         if(provinsi_selection):
-            filtered_df = df[df['Kabupaten/Kota'].isin(provinsi_selection)]
-            st.write(filtered_df)
+            filter_provinsi_df = df_multi[df_multi['Kabupaten/Kota'].isin(
+                provinsi_selection)]
+            c1, c2 = st.columns(2)
+            with c1:
+                plt.bar(filter_provinsi_df['Kabupaten/Kota'].values,
+                        filter_provinsi_df['Tahun 2018'].values)
+                plt.xlabel("Provinsi")
+                plt.ylabel("IPM")
+                plt.title("IPM 2018")
+                st.pyplot()
+                st.set_option('deprecation.showPyplotGlobalUse', False)
+
+                plt.bar(filter_provinsi_df['Kabupaten/Kota'].values,
+                        filter_provinsi_df['Tahun 2020'].values)
+                plt.xlabel("Provinsi")
+                plt.ylabel("IPM")
+                plt.title("IPM 2020")
+                st.pyplot()
+                st.set_option('deprecation.showPyplotGlobalUse', False)
+            with c2:
+                plt.bar(filter_provinsi_df['Kabupaten/Kota'].values, filter_provinsi_df['Tahun 2019'].values)
+                plt.xlabel("Provinsi")
+                plt.ylabel("IPM")
+                plt.title("IPM 2019")
+                st.pyplot()
+                st.set_option('deprecation.showPyplotGlobalUse', False)
+                
+                plt.bar(filter_provinsi_df['Kabupaten/Kota'].values, filter_provinsi_df['Tahun 2021'].values)
+                plt.xlabel("Provinsi")
+                plt.ylabel("IPM")
+                plt.title("IPM 2021")
+                st.pyplot()
+                st.set_option('deprecation.showPyplotGlobalUse', False)               
 
 elif(option == 'Provinsi'):
     provinsi = df['Kabupaten/Kota'].unique().tolist()
