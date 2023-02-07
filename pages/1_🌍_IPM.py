@@ -41,17 +41,21 @@ option = st.sidebar.selectbox(
 
 if(option == 'All'):
     # ===== STREAMLIT SELECTION =====
-    provinsi = df['Kabupaten/Kota'].unique().tolist()
+    # provinsi = df['Kabupaten/Kota'].unique().tolist()
+    provinsi = df['Kabupaten/Kota'].unique()
     provinsi_selection = st.multiselect('Provinsi:',
                                         provinsi,
                                         default=provinsi)
+    
 
     # Selected option
     if len(provinsi_selection) == 0 or len(provinsi_selection) == 1:
         st.warning('Pilih 2 Provinsi atau lebih untuk membandingkan.')
 
     else:
-        st.write("ALL")
+        if(provinsi_selection):
+            filtered_df = df[df['Kabupaten/Kota'].isin(provinsi_selection)]
+            st.write(filtered_df)
 
 elif(option == 'Provinsi'):
     provinsi = df['Kabupaten/Kota'].unique().tolist()
@@ -96,5 +100,3 @@ elif(option == 'Provinsi'):
     }, index=['2018', '2019', '2020', '2021'])
 
     st.line_chart(provinsi_IPM,  y='IPM', use_container_width=True)
-
-
