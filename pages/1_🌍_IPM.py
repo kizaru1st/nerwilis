@@ -62,12 +62,14 @@ if(option == 'All'):
             filter_provinsi_df = df_multi[df_multi['Kabupaten/Kota'].isin(
                 provinsi_selection)]
             c1, c2 = st.columns(2)
+            
             with c1:
                 plt.bar(filter_provinsi_df['Kabupaten/Kota'].values,
                         filter_provinsi_df['Tahun 2018'].values)
                 plt.xlabel("Provinsi")
                 plt.ylabel("IPM")
                 plt.title("IPM 2018")
+                plt.xticks(rotation=90)
                 st.pyplot()
                 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -76,6 +78,7 @@ if(option == 'All'):
                 plt.xlabel("Provinsi")
                 plt.ylabel("IPM")
                 plt.title("IPM 2020")
+                plt.xticks(rotation=90)
                 st.pyplot()
                 st.set_option('deprecation.showPyplotGlobalUse', False)
             with c2:
@@ -83,6 +86,7 @@ if(option == 'All'):
                 plt.xlabel("Provinsi")
                 plt.ylabel("IPM")
                 plt.title("IPM 2019")
+                plt.xticks(rotation=90)
                 st.pyplot()
                 st.set_option('deprecation.showPyplotGlobalUse', False)
                 
@@ -90,6 +94,7 @@ if(option == 'All'):
                 plt.xlabel("Provinsi")
                 plt.ylabel("IPM")
                 plt.title("IPM 2021")
+                plt.xticks(rotation=90)
                 st.pyplot()
                 st.set_option('deprecation.showPyplotGlobalUse', False)               
 
