@@ -5,6 +5,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 import plotly.subplots as sp
 import matplotlib.pyplot as plt
+import numpy as np
+import sys
 
 st.set_page_config(page_title='Dashboard Nerwillis',
                    page_icon=':bar_chart:', layout='wide')
@@ -69,23 +71,30 @@ elif(option == 'Provinsi'):
 
     m1.metric(label='Tahun 2021', value=float(
         to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
-    m2.metric(label='Rata-Rata 3 Tahun Terakhir',
+    m2.metric(label='Rata-Rata 4 Tahun Terakhir',
               value=float(to['Rata2'].map('{:,.2f}'.format)))
     m3.metric(label='Rata-Rata IPM di seluruh Kota/Kabupaten',
               value=formatTigaTahun)
 
+    # ----- MANIPULATION -----
     # ===== List for Years =====
     yearList = []
-    for i in range(2018,2022):
+    for i in range(2018, 2022):
         yearList.append(i)
-    yearList
-    
+
     # ===== List for Values =====
     single_row_df = to[0:1]
     listValuesIPM = []
     list_from_df = single_row_df.values.tolist()[0]
-    for i in range(1,5):
+    for i in range(1, 5):
         listValuesIPM.append(list_from_df[i])
-    listValuesIPM
-    
-    
+    # ----- END OF MANIPULATION -----
+
+    # ===== Show Bar Chart =====
+    provinsi_IPM = pd.DataFrame({
+        'IPM': listValuesIPM
+    }, index=['2018', '2019', '2020', '2021'])
+
+    st.line_chart(provinsi_IPM,  y='IPM', use_container_width=True)
+
+
