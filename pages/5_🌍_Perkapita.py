@@ -74,9 +74,9 @@ elif(option == 'Provinsi'):
     formatTigaTahun = "{:,.2f}".format(tigaTahun)
 
     m1.metric(label='Tahun 2021', value=int(
-        to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
+        to['Tahun 2021']), delta=deltaFormat)
     m2.metric(label='Rata-Rata 4 Tahun Terakhir',
-              value=int(to['Rata2'].map('{:,.2f}'.format)))
-    m3.metric(label='Rata-Rata Pengeluaran Per Kapita di seluruh Kota/Kabupaten',
+              value=int(to['Rata2']))
+    m3.metric(label='Rata-Rata Pengeluaran Per Kapita di seluruh Kota/Kabupaten 2021',
               value=formatTigaTahun)
 

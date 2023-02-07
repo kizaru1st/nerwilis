@@ -77,6 +77,6 @@ elif(option == 'Provinsi'):
         to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
     m2.metric(label='Rata-Rata 4 Tahun Terakhir',
               value=float(to['Rata2'].map('{:,.2f}'.format)))
-    m3.metric(label='Rata-Rata RLS di seluruh Kota/Kabupaten',
+    m3.metric(label='Rata-Rata RLS di seluruh Kota/Kabupaten 2021',
               value=formatTigaTahun)
 
