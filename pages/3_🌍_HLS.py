@@ -1,7 +1,6 @@
 # Libraries
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 
 st.set_page_config(page_title='Dashboard Nerwillis',
                    page_icon=':bar_chart:', layout='wide')
@@ -59,39 +58,11 @@ if(option == 'All'):
             c1, c2 = st.columns(2)
             
             with c1:
-                plt.bar(filter_provinsi_df['Kabupaten/Kota'].values,
-                        filter_provinsi_df['Tahun 2018'].values)
-                plt.xlabel("Provinsi")
-                plt.ylabel("HLS")
-                plt.title("HLS 2018")
-                plt.xticks(rotation=90)
-                st.pyplot()
-                st.set_option('deprecation.showPyplotGlobalUse', False)
-
-                plt.bar(filter_provinsi_df['Kabupaten/Kota'].values,
-                        filter_provinsi_df['Tahun 2020'].values)
-                plt.xlabel("Provinsi")
-                plt.ylabel("HLS")
-                plt.title("HLS 2020")
-                plt.xticks(rotation=90)
-                st.pyplot()
-                st.set_option('deprecation.showPyplotGlobalUse', False)
+                st.bar_chart(filter_provinsi_df,x='Kabupaten/Kota', y='Tahun 2018')
+                st.bar_chart(filter_provinsi_df,x='Kabupaten/Kota', y='Tahun 2020')
             with c2:
-                plt.bar(filter_provinsi_df['Kabupaten/Kota'].values, filter_provinsi_df['Tahun 2019'].values)
-                plt.xlabel("Provinsi")
-                plt.ylabel("HLS")
-                plt.title("HLS 2019")
-                plt.xticks(rotation=90)
-                st.pyplot()
-                st.set_option('deprecation.showPyplotGlobalUse', False)
-                
-                plt.bar(filter_provinsi_df['Kabupaten/Kota'].values, filter_provinsi_df['Tahun 2021'].values)
-                plt.xlabel("Provinsi")
-                plt.ylabel("HLS")
-                plt.title("HLS 2021")
-                plt.xticks(rotation=90)
-                st.pyplot()
-                st.set_option('deprecation.showPyplotGlobalUse', False)               
+                st.bar_chart(filter_provinsi_df,x='Kabupaten/Kota', y='Tahun 2019')
+                st.bar_chart(filter_provinsi_df,x='Kabupaten/Kota', y='Tahun 2021')              
 
 elif(option == 'Provinsi'):
     provinsi = df['Kabupaten/Kota'].unique().tolist()
