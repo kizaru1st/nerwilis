@@ -5,12 +5,8 @@ name = "pypi"
 
 [packages]
 pandas = "*"
-plotly = "*"
 streamlit = "*"
-"plotly.express" = "*"
 "matplotlib.pyplot" = "*"
-numpy = "*"
-sys = "*"
 
 [dev-packages]
 
