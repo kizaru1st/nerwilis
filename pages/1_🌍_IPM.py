@@ -105,7 +105,6 @@ elif(option == 'Provinsi'):
     todf = pd.read_excel('Neraca.xlsx', sheet_name='IPM')
     to = todf[(todf['Kabupaten/Kota'] == provinsi_selection)]
 
-
     # ===== delta =====
     deltaResult = float(to['Tahun 2021']) - float(to['Tahun 2020'])
     format_float = "{:,.2f}".format(deltaResult)
