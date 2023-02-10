@@ -73,7 +73,9 @@ elif(option == 'Provinsi'):
 
 
     # ===== delta =====
-    deltaResult = float(to['Tahun 2021']) - float(to['Tahun 2020'])
+    delta2020 = float(to['Tahun 2020'])
+    delta2021 = float(to['Tahun 2021'])
+    deltaResult = ((delta2021 - delta2020)/delta2020)*100
     format_float = "{:,.2f}".format(deltaResult)
     deltaFormat = format_float + "%"
 
