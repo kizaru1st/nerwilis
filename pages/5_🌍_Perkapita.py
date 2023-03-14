@@ -83,10 +83,17 @@ elif(option == 'Provinsi'):
     tigaTahun = df["Tahun 2021"].mean()
     formatTigaTahun = "{:,.2f}".format(tigaTahun)
 
-    m1.metric(label='Tahun 2021', value=int(
-        to['Tahun 2021']), delta=deltaFormat)
+    # ===== format Rata-rata 4 tahun ===== 
+    rata2_4tahun = float(to['Rata2'])
+    format_rata2 = "{:,.2f}".format(rata2_4tahun)
+    
+    # ===== format Tahun 2021 ===== 
+    tahun2021 = int(to['Tahun 2021'])
+    format_tahun2021 = "{:,}".format(tahun2021)
+
+    m1.metric(label='Tahun 2021', value=format_tahun2021, delta=deltaFormat)
     m2.metric(label='Rata-Rata 4 Tahun Terakhir',
-              value=float(to['Rata2']))
+              value=format_rata2)
     m3.metric(label='Rata-Rata Perkapita di seluruh Kota/Kabupaten 2021',
               value=formatTigaTahun)
 

@@ -40,20 +40,3 @@ st.write(
     """
 )
 
-st.subheader('Methodology')
-st.write(
-    """
-    Terdapat beberapa metode pembangunan dashboard. Dalam pembangunan dashboard untuk Fungsi Neraca Wilayah dan Analisis Statistik, digunakan metode pureshare.
-    Metode pureshare adalah salah satu metode pembangunan dashboard yang dikembangkan oleh vendor Pureshare untuk memberi fasilitas terhadap proyek yang berkaitan dengan usaha pengelolaan dan pengukuran kinerja organisasi, termasuk pembangunan dashboard. Pembangunan dashboard dirancang supaya selaras dengan kebutuhan teknologi dan tujuan bisnisnya.
-    Proses ini terbukti menurunkan tingkat resiko proyek dengan melibatkan enduser dalam pembuatan dashboard serta mempercepat dalam penerapannya.
-    1. Perencanaan dan desain (planning and design stage highlights)
-    2. Review sistem dan data (system and data review highlights)
-    3. Perancangan prototype (prototype stage highlights) 
-    4. Perbaikan prototype (refinement stage highlights) 
-    5. Release
-    6. Perbaikan terus-menerus (continuous improvement)
-
-    
-
-    """
-)
