@@ -1,6 +1,9 @@
 # Libraries
 import streamlit as st
 import pandas as pd
+import plotly.express as px
+import plotly.graph_objs as go
+import altair as alt
 
 st.set_page_config(page_title='Dashboard Nerwillis',
                    page_icon=':bar_chart:', layout='wide')
@@ -17,8 +20,11 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # ===== Use Column in excel =====
 excel_file = 'Neraca.xlsx'
+nasional_excel = 'IPM Nasional.xlsx'
 sheet_name = 'IPM'
+nasional_sheet = 'Provinsi'
 
+# Sumatera Barat
 df = pd.read_excel(excel_file,
                    sheet_name=sheet_name,
                    usecols='A:G',
@@ -34,16 +40,32 @@ df_participants = pd.read_excel(excel_file,
                                 usecols='A:B')
 df_participants.dropna(inplace=True)
 
+# Nasional
+df_nasional = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='A:G',
+                   header=0)
+
+df_multi_nasional = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='A:E',
+                   header=0)
+
+df_participants_nasional = pd.read_excel(excel_file,
+                                sheet_name=sheet_name,
+                                usecols='A:B')
+df_participants_nasional.dropna(inplace=True)
+
 # ===== Dropdown in Sidebar =====
 option = st.sidebar.selectbox(
     'Filter',
-    ('All', 'Provinsi'))
+    ('All', 'Kabupaten/Kota', 'Nasional'))
 
 if(option == 'All'):
     # ===== STREAMLIT SELECTION =====
     # provinsi = df['Kabupaten/Kota'].unique().tolist()
     provinsi = df_multi['Kabupaten/Kota'].unique()
-    provinsi_selection = st.multiselect('Provinsi:',
+    provinsi_selection = st.multiselect('Kabupaten/Kota:',
                                         provinsi,
                                         default=provinsi)
 
@@ -58,13 +80,23 @@ if(option == 'All'):
             c1, c2 = st.columns(2)
             
             with c1:
-                st.bar_chart(filter_provinsi_df,x='Kabupaten/Kota', y='Tahun 2018')
-                st.bar_chart(filter_provinsi_df,x='Kabupaten/Kota', y='Tahun 2020')
-            with c2:
-                st.bar_chart(filter_provinsi_df,x='Kabupaten/Kota', y='Tahun 2019')
-                st.bar_chart(filter_provinsi_df,x='Kabupaten/Kota', y='Tahun 2021')               
+                fig1 = px.bar(filter_provinsi_df, x='Kabupaten/Kota', y='Tahun 2018', color='Kabupaten/Kota', range_y=[60,100])
+                fig1.update_layout(width=800)
+                st.write(fig1)
 
-elif(option == 'Provinsi'):
+                fig2 = px.bar(filter_provinsi_df, x='Kabupaten/Kota', y='Tahun 2020', color='Kabupaten/Kota', range_y=[60,100])
+                fig2.update_layout(width=800)
+                st.write(fig2)
+            with c2:
+                fig3 = px.bar(filter_provinsi_df, x='Kabupaten/Kota', y='Tahun 2019', color='Kabupaten/Kota', range_y=[60,100])
+                fig3.update_layout(width=800)
+                st.write(fig3)
+
+                fig4 = px.bar(filter_provinsi_df, x='Kabupaten/Kota', y='Tahun 2021', color='Kabupaten/Kota', range_y=[60,100])
+                fig4.update_layout(width=800)
+                st.write(fig4)  
+
+elif(option == 'Kabupaten/Kota'):
     provinsi = df['Kabupaten/Kota'].unique().tolist()
     provinsi_selection = st.selectbox('Pilih Provinsi : ', provinsi)
     m1, m2, m3 = st.columns((1, 1, 1))
@@ -103,7 +135,36 @@ elif(option == 'Provinsi'):
 
     # ===== Show Bar Chart =====
     provinsi_IPM = pd.DataFrame({
-        'IPM': listValuesIPM
+        'IPM': listValuesIPM,
     }, index=['2018', '2019', '2020', '2021'])
+    # st.line_chart(provinsi_IPM,  y='IPM', use_container_width=True)
+    
+    y_range = [65, 85]
 
-    st.line_chart(provinsi_IPM,  y='IPM', use_container_width=True)
+    provinsi_IPM['x'] = provinsi_IPM.index
+    provinsi_IPM['y'] = provinsi_IPM.IPM
+
+    fig = go.Figure(
+        go.Scatter(x=provinsi_IPM['x'], y=provinsi_IPM['y'], mode='lines')
+    )
+    fig.update_layout(
+        yaxis=dict(range=y_range),
+        xaxis_title="Tahun",
+        yaxis_title="IPM"
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+
+
+
+
+
+
+
+elif(option == 'Nasional'):
+    provinsi = df['Kabupaten/Kota'].unique().tolist()
+    provinsi_selection = st.selectbox('Pilih Provinsi : ', provinsi)
+    m1, m2, m3 = st.columns((1, 1, 1))
+    todf = pd.read_excel('Neraca.xlsx', sheet_name='IPM')
+    to = todf[(todf['Kabupaten/Kota'] == provinsi_selection)]
