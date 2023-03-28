@@ -137,30 +137,24 @@ elif(option == 'Kabupaten/Kota'):
     provinsi_IPM = pd.DataFrame({
         'IPM': listValuesIPM,
     }, index=['2018', '2019', '2020', '2021'])
-    # st.line_chart(provinsi_IPM,  y='IPM', use_container_width=True)
     
-    y_range = [65, 85]
+    st.line_chart(provinsi_IPM,  y='IPM', use_container_width=True)
+    
+    # y_range = [65, 85]
 
-    provinsi_IPM['x'] = provinsi_IPM.index
-    provinsi_IPM['y'] = provinsi_IPM.IPM
+    # provinsi_IPM['x'] = ['2018', '2019', '2020', '2021']
+    # provinsi_IPM['y'] = provinsi_IPM.IPM
 
-    fig = go.Figure(
-        go.Scatter(x=provinsi_IPM['x'], y=provinsi_IPM['y'], mode='lines')
-    )
-    fig.update_layout(
-        yaxis=dict(range=y_range),
-        xaxis_title="Tahun",
-        yaxis_title="IPM"
-    )
+    # fig = go.Figure(
+    #     go.Scatter(x=provinsi_IPM['x'], y=provinsi_IPM['y'], mode='lines')
+    # )
+    # fig.update_layout(
+    #     yaxis=dict(range=y_range),
+    #     xaxis_title="Tahun",
+    #     yaxis_title="IPM"
+    # )
 
-    st.plotly_chart(fig, use_container_width=True)
-
-
-
-
-
-
-
+    # st.plotly_chart(fig, use_container_width=True)
 
 elif(option == 'Nasional'):
     provinsi = df['Kabupaten/Kota'].unique().tolist()
