@@ -24,6 +24,9 @@ nasional_excel = 'IPM Nasional.xlsx'
 sheet_name = 'IPM'
 nasional_sheet = 'Provinsi'
 wilayah_sheet = 'Pembagian'
+barat_sheet = 'IDN Barat'
+tengah_sheet = 'IDN Tengah'
+timur_sheet = 'IDN Timur'
 
 # Sumatera Barat
 df = pd.read_excel(excel_file,
@@ -73,10 +76,58 @@ df_participants_wilayah = pd.read_excel(nasional_excel,
                                 usecols='A:B')
 df_participants_wilayah.dropna(inplace=True)
 
+# IDN Barat
+df_barat = pd.read_excel(nasional_excel,
+                   sheet_name=barat_sheet,
+                   usecols='A:G',
+                   header=0)
+
+df_multi_barat = pd.read_excel(nasional_excel,
+                   sheet_name=barat_sheet,
+                   usecols='A:E',
+                   header=0)
+
+df_participants_barat = pd.read_excel(nasional_excel,
+                                sheet_name=barat_sheet,
+                                usecols='A:B')
+df_participants_barat.dropna(inplace=True)
+
+# IDN Tengah
+df_tengah = pd.read_excel(nasional_excel,
+                   sheet_name=tengah_sheet,
+                   usecols='A:G',
+                   header=0)
+
+df_multi_tengah = pd.read_excel(nasional_excel,
+                   sheet_name=tengah_sheet,
+                   usecols='A:E',
+                   header=0)
+
+df_participants_tengah = pd.read_excel(nasional_excel,
+                                sheet_name=tengah_sheet,
+                                usecols='A:B')
+df_participants_tengah.dropna(inplace=True)
+
+# IDN Timur
+df_timur = pd.read_excel(nasional_excel,
+                   sheet_name=timur_sheet,
+                   usecols='A:G',
+                   header=0)
+
+df_multi_timur = pd.read_excel(nasional_excel,
+                   sheet_name=timur_sheet,
+                   usecols='A:E',
+                   header=0)
+
+df_participants_timur = pd.read_excel(nasional_excel,
+                                sheet_name=timur_sheet,
+                                usecols='A:B')
+df_participants_timur.dropna(inplace=True)
+
 # ===== Dropdown in Sidebar =====
 option = st.sidebar.selectbox(
     'Filter',
-    ('Sumbar', 'Kabupaten/Kota', 'Nasional', 'Nasional Provinsi', 'Wilayah Indonesia'))
+    ('Sumbar', 'Kabupaten/Kota', 'Nasional', 'Nasional Provinsi', 'Wilayah Indonesia', 'Indonesia Barat', 'Indonesia Tengah', 'Indonesia Timur'))
 
 # ===== SUMATERA BARAT =====
 if(option == 'Sumbar'):
@@ -274,5 +325,135 @@ elif(option == 'Wilayah Indonesia'):
                     fig4.update_layout(width=500)
                     st.write(fig4)
 
+elif(option == 'Indonesia Barat'):
+    nasional = df_barat['Provinsi'].unique().tolist()
+    nasional_selection = st.selectbox('Pilih Provinsi : ', nasional)
+    m1, m2, m3 = st.columns((1, 1, 1))
+    todf = pd.read_excel('IPM Nasional.xlsx', sheet_name='IDN Barat')
+    to = todf[(todf['Provinsi'] == nasional_selection)]
 
+    # ===== delta =====
+    deltaResult = float(to['Tahun 2021']) - float(to['Tahun 2020'])
+    format_float = "{:,.2f}".format(deltaResult)
+    deltaFormat = format_float + "%"
+
+    # ===== rata-rata 3 tahun =====
+    tigaTahun = df["Tahun 2021"].mean()
+    formatTigaTahun = "{:,.2f}".format(tigaTahun)
+
+    m1.metric(label='Tahun 2021', value=float(
+        to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
+    m2.metric(label='Rata-Rata 4 Tahun Terakhir',
+              value=float(to['Rata2'].map('{:,.2f}'.format)))
+    m3.metric(label='Rata-Rata IPM di seluruh Provinsi 2021',
+              value=formatTigaTahun)
+
+    wilayah_barat = df_multi_barat
+    st.subheader('Tahun 2018')
+    fig1 = px.bar(wilayah_barat, x='Provinsi', y='Tahun 2018', color='Provinsi', range_y=[60,90])
+    fig1.update_layout(width=800)
+    st.write(fig1)
+
+    st.subheader('Tahun 2019')
+    fig2 = px.bar(wilayah_barat, x='Provinsi', y='Tahun 2020', color='Provinsi', range_y=[60,90])
+    fig2.update_layout(width=800)
+    st.write(fig2)              
+
+    st.subheader('Tahun 2020')
+    fig3 = px.bar(wilayah_barat, x='Provinsi', y='Tahun 2019', color='Provinsi', range_y=[60,90])
+    fig3.update_layout(width=800)
+    st.write(fig3)
+
+    st.subheader('Tahun 2021')
+    fig4 = px.bar(wilayah_barat, x='Provinsi', y='Tahun 2021', color='Provinsi', range_y=[60,90])
+    fig4.update_layout(width=800)
+    st.write(fig4)
+
+elif(option == 'Indonesia Tengah'):
+    nasional = df_tengah['Provinsi'].unique().tolist()
+    nasional_selection = st.selectbox('Pilih Provinsi : ', nasional)
+    m1, m2, m3 = st.columns((1, 1, 1))
+    todf = pd.read_excel('IPM Nasional.xlsx', sheet_name='IDN Tengah')
+    to = todf[(todf['Provinsi'] == nasional_selection)]
+
+    # ===== delta =====
+    deltaResult = float(to['Tahun 2021']) - float(to['Tahun 2020'])
+    format_float = "{:,.2f}".format(deltaResult)
+    deltaFormat = format_float + "%"
+
+    # ===== rata-rata 3 tahun =====
+    tigaTahun = df["Tahun 2021"].mean()
+    formatTigaTahun = "{:,.2f}".format(tigaTahun)
+
+    m1.metric(label='Tahun 2021', value=float(
+        to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
+    m2.metric(label='Rata-Rata 4 Tahun Terakhir',
+              value=float(to['Rata2'].map('{:,.2f}'.format)))
+    m3.metric(label='Rata-Rata IPM di seluruh Provinsi 2021',
+              value=formatTigaTahun)
+
+    wilayah_tengah = df_multi_tengah
+    st.subheader('Tahun 2018')
+    fig1 = px.bar(wilayah_tengah, x='Provinsi', y='Tahun 2018', color='Provinsi', range_y=[60,90])
+    fig1.update_layout(width=800)
+    st.write(fig1)
+
+    st.subheader('Tahun 2019')
+    fig2 = px.bar(wilayah_tengah, x='Provinsi', y='Tahun 2020', color='Provinsi', range_y=[60,90])
+    fig2.update_layout(width=800)
+    st.write(fig2)              
+
+    st.subheader('Tahun 2020')
+    fig3 = px.bar(wilayah_tengah, x='Provinsi', y='Tahun 2019', color='Provinsi', range_y=[60,90])
+    fig3.update_layout(width=800)
+    st.write(fig3)
+
+    st.subheader('Tahun 2021')
+    fig4 = px.bar(wilayah_tengah, x='Provinsi', y='Tahun 2021', color='Provinsi', range_y=[60,90])
+    fig4.update_layout(width=800)
+    st.write(fig4)
+
+elif(option == 'Indonesia Timur'):
+    nasional = df_timur['Provinsi'].unique().tolist()
+    nasional_selection = st.selectbox('Pilih Provinsi : ', nasional)
+    m1, m2, m3 = st.columns((1, 1, 1))
+    todf = pd.read_excel('IPM Nasional.xlsx', sheet_name='IDN Timur')
+    to = todf[(todf['Provinsi'] == nasional_selection)]
+
+    # ===== delta =====
+    deltaResult = float(to['Tahun 2021']) - float(to['Tahun 2020'])
+    format_float = "{:,.2f}".format(deltaResult)
+    deltaFormat = format_float + "%"
+
+    # ===== rata-rata 3 tahun =====
+    tigaTahun = df["Tahun 2021"].mean()
+    formatTigaTahun = "{:,.2f}".format(tigaTahun)
+
+    m1.metric(label='Tahun 2021', value=float(
+        to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
+    m2.metric(label='Rata-Rata 4 Tahun Terakhir',
+              value=float(to['Rata2'].map('{:,.2f}'.format)))
+    m3.metric(label='Rata-Rata IPM di seluruh Provinsi 2021',
+              value=formatTigaTahun)
+
+    wilayah_timur = df_multi_timur
+    st.subheader('Tahun 2018')
+    fig1 = px.bar(wilayah_timur, x='Provinsi', y='Tahun 2018', color='Provinsi', range_y=[60,90])
+    fig1.update_layout(width=800)
+    st.write(fig1)
+
+    st.subheader('Tahun 2019')
+    fig2 = px.bar(wilayah_timur, x='Provinsi', y='Tahun 2020', color='Provinsi', range_y=[60,90])
+    fig2.update_layout(width=800)
+    st.write(fig2)              
+
+    st.subheader('Tahun 2020')
+    fig3 = px.bar(wilayah_timur, x='Provinsi', y='Tahun 2019', color='Provinsi', range_y=[60,90])
+    fig3.update_layout(width=800)
+    st.write(fig3)
+
+    st.subheader('Tahun 2021')
+    fig4 = px.bar(wilayah_timur, x='Provinsi', y='Tahun 2021', color='Provinsi', range_y=[60,90])
+    fig4.update_layout(width=800)
+    st.write(fig4)
     
