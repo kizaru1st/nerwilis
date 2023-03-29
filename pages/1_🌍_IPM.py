@@ -271,7 +271,7 @@ elif(option == 'Nasional'):
 
                 st.subheader('Tahun 2018')
                 fig1 = px.bar(filter_nasional_df, x='Provinsi', y='Tahun 2018', color='Provinsi', range_y=[60,90])
-                fig1.update_layout(width=800)
+                fig1.update_layout(width=1500)
                 st.write(fig1)
 
                 st.subheader('Tahun 2019')
@@ -351,7 +351,7 @@ elif(option == 'Indonesia Barat'):
     wilayah_barat = df_multi_barat
     st.subheader('Tahun 2018')
     fig1 = px.bar(wilayah_barat, x='Provinsi', y='Tahun 2018', color='Provinsi', range_y=[60,90])
-    fig1.update_layout(width=800)
+    fig1.update_layout(width=1500)
     st.write(fig1)
 
     st.subheader('Tahun 2019')
@@ -395,7 +395,7 @@ elif(option == 'Indonesia Tengah'):
     wilayah_tengah = df_multi_tengah
     st.subheader('Tahun 2018')
     fig1 = px.bar(wilayah_tengah, x='Provinsi', y='Tahun 2018', color='Provinsi', range_y=[60,90])
-    fig1.update_layout(width=800)
+    fig1.update_layout(width=1500)
     st.write(fig1)
 
     st.subheader('Tahun 2019')
@@ -439,7 +439,7 @@ elif(option == 'Indonesia Timur'):
     wilayah_timur = df_multi_timur
     st.subheader('Tahun 2018')
     fig1 = px.bar(wilayah_timur, x='Provinsi', y='Tahun 2018', color='Provinsi', range_y=[60,90])
-    fig1.update_layout(width=800)
+    fig1.update_layout(width=1500)
     st.write(fig1)
 
     st.subheader('Tahun 2019')

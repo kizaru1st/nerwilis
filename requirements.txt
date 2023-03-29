@@ -3,3 +3,6 @@ streamlit
 openpyxl
 plotly.express
 plotly.graph_objs
+altair
+express
+graph_objs
