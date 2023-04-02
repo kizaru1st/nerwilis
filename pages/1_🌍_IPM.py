@@ -147,22 +147,22 @@ if(option == 'Sumbar'):
             
             st.subheader('Tahun 2018')
             fig1 = px.bar(filter_provinsi_df, x='Kabupaten/Kota', y='Tahun 2018', color='Kabupaten/Kota', range_y=[60,90])
-            fig1.update_layout(width=800)
+            fig1.update_layout(width=900)
             st.write(fig1)
 
             st.subheader('Tahun 2019')
             fig2 = px.bar(filter_provinsi_df, x='Kabupaten/Kota', y='Tahun 2020', color='Kabupaten/Kota', range_y=[60,90])
-            fig2.update_layout(width=800)
+            fig2.update_layout(width=900)
             st.write(fig2)
 
             st.subheader('Tahun 2020')
             fig3 = px.bar(filter_provinsi_df, x='Kabupaten/Kota', y='Tahun 2019', color='Kabupaten/Kota', range_y=[60,90])
-            fig3.update_layout(width=800)
+            fig3.update_layout(width=900)
             st.write(fig3)
 
             st.subheader('Tahun 2021')
             fig4 = px.bar(filter_provinsi_df, x='Kabupaten/Kota', y='Tahun 2021', color='Kabupaten/Kota', range_y=[60,90])
-            fig4.update_layout(width=800)
+            fig4.update_layout(width=900)
             st.write(fig4)  
 
 # ===== KABUPATEN / KOTA =====
@@ -186,7 +186,7 @@ elif(option == 'Kabupaten/Kota'):
         to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
     m2.metric(label='Rata-Rata 4 Tahun Terakhir',
               value=float(to['Rata2'].map('{:,.2f}'.format)))
-    m3.metric(label='Rata-Rata IPM di seluruh Kota/Kabupaten 2021',
+    m3.metric(label='Rata-Rata IPM Kabupaten/Kota Sumatera Barat 2021',
               value=formatTigaTahun)
 
     # ----- MANIPULATION -----
@@ -214,22 +214,22 @@ elif(option == 'Nasional Provinsi'):
     nasional = df_nasional['Provinsi'].unique().tolist()
     nasional_selection = st.selectbox('Pilih nasional : ', nasional)
     m1, m2, m3 = st.columns((1, 1, 1))
-    todf = pd.read_excel('IPM Nasional.xlsx', sheet_name='Provinsi')
-    to = todf[(todf['Provinsi'] == nasional_selection)]
+    todf_nasional_provinsi = pd.read_excel('IPM Nasional.xlsx', sheet_name='Provinsi')
+    to_nasional_provinsi = todf_nasional_provinsi[(todf_nasional_provinsi['Provinsi'] == nasional_selection)]
 
     # ===== delta =====
-    deltaResult = float(to['Tahun 2021']) - float(to['Tahun 2020'])
+    deltaResult = float(to_nasional_provinsi['Tahun 2021']) - float(to_nasional_provinsi['Tahun 2020'])
     format_float = "{:,.2f}".format(deltaResult)
     deltaFormat = format_float + "%"
 
     # ===== rata-rata 3 tahun =====
-    tigaTahun = df["Tahun 2021"].mean()
+    tigaTahun = df_nasional["Tahun 2021"].mean()
     formatTigaTahun = "{:,.2f}".format(tigaTahun)
 
     m1.metric(label='Tahun 2021', value=float(
-        to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
+        to_nasional_provinsi['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
     m2.metric(label='Rata-Rata 4 Tahun Terakhir',
-              value=float(to['Rata2'].map('{:,.2f}'.format)))
+              value=float(to_nasional_provinsi['Rata2'].map('{:,.2f}'.format)))
     m3.metric(label='Rata-Rata IPM di seluruh Provinsi 2021',
               value=formatTigaTahun)
 
@@ -240,7 +240,7 @@ elif(option == 'Nasional Provinsi'):
         yearList.append(i)
 
     # ===== List for Values =====
-    single_row_df = to[0:1]
+    single_row_df = to_nasional_provinsi[0:1]
     listValuesIPM = []
     list_from_df = single_row_df.values.tolist()[0]
     for i in range(1, 5):
@@ -269,22 +269,22 @@ elif(option == 'Nasional'):
 
                 st.subheader('Tahun 2018')
                 fig1 = px.bar(filter_nasional_df, x='Provinsi', y='Tahun 2018', color='Provinsi', range_y=[60,90])
-                fig1.update_layout(width=1500)
+                fig1.update_layout(width=900)
                 st.write(fig1)
 
                 st.subheader('Tahun 2019')
                 fig2 = px.bar(filter_nasional_df, x='Provinsi', y='Tahun 2020', color='Provinsi', range_y=[60,90])
-                fig2.update_layout(width=800)
+                fig2.update_layout(width=900)
                 st.write(fig2)              
 
                 st.subheader('Tahun 2020')
                 fig3 = px.bar(filter_nasional_df, x='Provinsi', y='Tahun 2019', color='Provinsi', range_y=[60,90])
-                fig3.update_layout(width=800)
+                fig3.update_layout(width=900)
                 st.write(fig3)
 
                 st.subheader('Tahun 2021')
                 fig4 = px.bar(filter_nasional_df, x='Provinsi', y='Tahun 2021', color='Provinsi', range_y=[60,90])
-                fig4.update_layout(width=800)
+                fig4.update_layout(width=900)
                 st.write(fig4)
 
 elif(option == 'Wilayah Indonesia'):
@@ -336,35 +336,35 @@ elif(option == 'Indonesia Barat'):
     deltaFormat = format_float + "%"
 
     # ===== rata-rata 3 tahun =====
-    tigaTahun = df["Tahun 2021"].mean()
+    tigaTahun = df_barat["Tahun 2021"].mean()
     formatTigaTahun = "{:,.2f}".format(tigaTahun)
 
     m1.metric(label='Tahun 2021', value=float(
         to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
     m2.metric(label='Rata-Rata 4 Tahun Terakhir',
               value=float(to['Rata2'].map('{:,.2f}'.format)))
-    m3.metric(label='Rata-Rata IPM di seluruh Provinsi 2021',
+    m3.metric(label='Rata-Rata IPM di Indonesia Barat 2021',
               value=formatTigaTahun)
 
     wilayah_barat = df_multi_barat
     st.subheader('Tahun 2018')
     fig1 = px.bar(wilayah_barat, x='Provinsi', y='Tahun 2018', color='Provinsi', range_y=[60,90])
-    fig1.update_layout(width=1500)
+    fig1.update_layout(width=900)
     st.write(fig1)
 
     st.subheader('Tahun 2019')
     fig2 = px.bar(wilayah_barat, x='Provinsi', y='Tahun 2020', color='Provinsi', range_y=[60,90])
-    fig2.update_layout(width=800)
+    fig2.update_layout(width=900)
     st.write(fig2)              
 
     st.subheader('Tahun 2020')
     fig3 = px.bar(wilayah_barat, x='Provinsi', y='Tahun 2019', color='Provinsi', range_y=[60,90])
-    fig3.update_layout(width=800)
+    fig3.update_layout(width=900)
     st.write(fig3)
 
     st.subheader('Tahun 2021')
     fig4 = px.bar(wilayah_barat, x='Provinsi', y='Tahun 2021', color='Provinsi', range_y=[60,90])
-    fig4.update_layout(width=800)
+    fig4.update_layout(width=900)
     st.write(fig4)
 
 elif(option == 'Indonesia Tengah'):
@@ -380,35 +380,35 @@ elif(option == 'Indonesia Tengah'):
     deltaFormat = format_float + "%"
 
     # ===== rata-rata 3 tahun =====
-    tigaTahun = df["Tahun 2021"].mean()
+    tigaTahun = df_tengah["Tahun 2021"].mean()
     formatTigaTahun = "{:,.2f}".format(tigaTahun)
 
     m1.metric(label='Tahun 2021', value=float(
         to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
     m2.metric(label='Rata-Rata 4 Tahun Terakhir',
               value=float(to['Rata2'].map('{:,.2f}'.format)))
-    m3.metric(label='Rata-Rata IPM di seluruh Provinsi 2021',
+    m3.metric(label='Rata-Rata IPM di Indonesia Tengah 2021',
               value=formatTigaTahun)
 
     wilayah_tengah = df_multi_tengah
     st.subheader('Tahun 2018')
     fig1 = px.bar(wilayah_tengah, x='Provinsi', y='Tahun 2018', color='Provinsi', range_y=[60,90])
-    fig1.update_layout(width=1500)
+    fig1.update_layout(width=900)
     st.write(fig1)
 
     st.subheader('Tahun 2019')
     fig2 = px.bar(wilayah_tengah, x='Provinsi', y='Tahun 2020', color='Provinsi', range_y=[60,90])
-    fig2.update_layout(width=800)
+    fig2.update_layout(width=900)
     st.write(fig2)              
 
     st.subheader('Tahun 2020')
     fig3 = px.bar(wilayah_tengah, x='Provinsi', y='Tahun 2019', color='Provinsi', range_y=[60,90])
-    fig3.update_layout(width=800)
+    fig3.update_layout(width=900)
     st.write(fig3)
 
     st.subheader('Tahun 2021')
     fig4 = px.bar(wilayah_tengah, x='Provinsi', y='Tahun 2021', color='Provinsi', range_y=[60,90])
-    fig4.update_layout(width=800)
+    fig4.update_layout(width=900)
     st.write(fig4)
 
 elif(option == 'Indonesia Timur'):
@@ -424,34 +424,34 @@ elif(option == 'Indonesia Timur'):
     deltaFormat = format_float + "%"
 
     # ===== rata-rata 3 tahun =====
-    tigaTahun = df["Tahun 2021"].mean()
+    tigaTahun = df_timur["Tahun 2021"].mean()
     formatTigaTahun = "{:,.2f}".format(tigaTahun)
 
     m1.metric(label='Tahun 2021', value=float(
         to['Tahun 2021'].map('{:,.2f}'.format)), delta=deltaFormat)
     m2.metric(label='Rata-Rata 4 Tahun Terakhir',
               value=float(to['Rata2'].map('{:,.2f}'.format)))
-    m3.metric(label='Rata-Rata IPM di seluruh Provinsi 2021',
+    m3.metric(label='Rata-Rata IPM di Indonesia Timur 2021',
               value=formatTigaTahun)
 
     wilayah_timur = df_multi_timur
     st.subheader('Tahun 2018')
     fig1 = px.bar(wilayah_timur, x='Provinsi', y='Tahun 2018', color='Provinsi', range_y=[60,90])
-    fig1.update_layout(width=1500)
+    fig1.update_layout(width=900)
     st.write(fig1)
 
     st.subheader('Tahun 2019')
     fig2 = px.bar(wilayah_timur, x='Provinsi', y='Tahun 2020', color='Provinsi', range_y=[60,90])
-    fig2.update_layout(width=800)
+    fig2.update_layout(width=900)
     st.write(fig2)              
 
     st.subheader('Tahun 2020')
     fig3 = px.bar(wilayah_timur, x='Provinsi', y='Tahun 2019', color='Provinsi', range_y=[60,90])
-    fig3.update_layout(width=800)
+    fig3.update_layout(width=900)
     st.write(fig3)
 
     st.subheader('Tahun 2021')
     fig4 = px.bar(wilayah_timur, x='Provinsi', y='Tahun 2021', color='Provinsi', range_y=[60,90])
-    fig4.update_layout(width=800)
+    fig4.update_layout(width=900)
     st.write(fig4)
     
